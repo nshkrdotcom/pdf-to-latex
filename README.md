@@ -17,7 +17,7 @@ This project aims to convert PDF documents to LaTeX, preserving the original doc
 ###  Overall
 
 ```mermaid
-graph LR
+graph TD
     A[PDF Input] --> B{Rasterization & OCR};
     B --> C[Text Representation];
     C --> D{Structure Analysis & Parsing};

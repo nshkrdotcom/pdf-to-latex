@@ -1,0 +1,11 @@
+# requirements.txt
+
+psycopg2-binary  # For PostgreSQL database interaction
+py2neo           # For Neo4j database interaction
+pymupdf          # For PDF handling (used in pdf_parser.py)
+pytesseract      # For OCR (used in pdf_parser.py)
+Pillow           # For image processing (used in pdf_parser.py)
+jinja2           # For LaTeX template rendering (used in latex_generator.py)
+# Add other libraries as needed, e.g., 
+# spacy           # If using spaCy for NLP in structure_analyzer.py
+# nltk           # If using NLTK for NLP in structure_analyzer.py

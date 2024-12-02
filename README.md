@@ -32,7 +32,8 @@ graph LR
 
 ### Detailed
 
-```mermaidgraph LR
+```mermaid
+graph LR
     subgraph PDF Parser
         A[PDFParser Class] --> B(parse_pdf function);
         B --> C{"Rasterization (PyMuPDF)"};

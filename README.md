@@ -12,6 +12,94 @@ This project aims to convert PDF documents to LaTeX, preserving the original doc
 * **Modular Design:**  Allows for customization and extension of individual pipeline components.
 * **Scalability:** Designed to handle large PDF documents.
 
+## Diagrams:
+
+###  Overall
+
+```mermaid
+graph LR
+    A[PDF Input] --> B{Rasterization & OCR};
+    B --> C[Text Representation];
+    C --> D{Structure Analysis & Parsing};
+    D --> E[Persistence Layer];
+    E -- Graph(s) --> F;
+    E -- AST(s) --> F;
+    E -- Relational DB --> F;
+    E -- Misc Data --> F;
+    F[Integrated Data] --> G{LaTeX Generation};
+    G --> H[LaTeX Output];
+```
+
+### Detailed
+
+```mermaidgraph LR
+    subgraph PDF Parser
+        A[PDFParser Class] --> B(parse_pdf function);
+        B --> C{"Rasterization (PyMuPDF)"};
+        B --> D{"OCR (Pytesseract)"};
+        D --> E(extract_text_from_image function);
+    end
+
+    subgraph Structure Analyzer
+        F[StructureAnalyzer Class] --> G(analyze_text function);
+        G --> H(Regular Expressions);
+        G --> I(NLP Techniques - Optional);
+        G --> J(Layout Analysis - Optional);
+    end
+
+    subgraph Persistence Layer
+        K[PersistenceLayer Class] --> L(create_document function);
+        K --> M(create_page function);
+        K --> N(create_block function);
+        K --> O(create_follows_relationship function);
+        K --> P(_pg_execute helper function);
+
+        subgraph PostgreSQL
+            Q[Documents Table]
+            R[Pages Table]
+            S[Blocks Table]
+            T[TextBlocks Table]
+            U[ImageBlocks Table]
+            V[Tables Table]
+            W[Equations Table]
+
+            L --> Q
+            M --> R
+            N --> S
+            N --> T
+            N --> U
+            N --> V
+            N --> W
+
+
+        end
+
+        subgraph Neo4j
+            X[Document Node]
+            Y[Page Node]
+            Z[Block Node]
+
+            L --> X
+            M --> Y
+            N --> Z
+            O --> Z
+        end
+
+    end
+	
+    subgraph LaTeX Generator
+        AA[LaTeXGenerator Class] --> BB(generate_latex function);
+        BB --> CC(Jinja2 Templates);
+        BB --> DD(_generate_section helper function)
+    end
+
+    A --> F
+    F --> K
+    K --> AA
+```
+
+
+
 ## Architecture
 
 The pipeline comprises three main stages:
